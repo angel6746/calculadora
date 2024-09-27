@@ -15,15 +15,15 @@ def calcular():
 def limpiar():
     entrada.delete(0, tk.END)
 
-# Crear la ventana principal
+
 ventana = tk.Tk()
 ventana.title("Calculadora")
 
-# Crear una entrada para mostrar los números
+
 entrada = tk.Entry(ventana, width=16, font=('Arial', 24), borderwidth=2, relief="solid")
 entrada.grid(row=0, column=0, columnspan=4)
 
-# Crear los botones de la calculadora
+
 botones = [
     '7', '8', '9', '/',
     '4', '5', '6', '*',
