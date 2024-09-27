@@ -17,7 +17,7 @@ def limpiar():
 
 
 ventana = tk.Tk()
-ventana.title("Calculadora")
+ventana.title("Calculadora2.0")
 
 
 entrada = tk.Entry(ventana, width=16, font=('Arial', 24), borderwidth=2, relief="solid")
