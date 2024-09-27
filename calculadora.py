@@ -1,41 +1,50 @@
-def sumar(x, y):
-    return x + y
+import tkinter as tk
 
-def restar(x, y):
-    return x - y
+def agregar_caracter(caracter):
+    entrada.insert(tk.END, caracter)
 
-def multiplicar(x, y):
-    return x * y
+def calcular():
+    try:
+        resultado = eval(entrada.get())
+        entrada.delete(0, tk.END)
+        entrada.insert(tk.END, str(resultado))
+    except Exception as e:
+        entrada.delete(0, tk.END)
+        entrada.insert(tk.END, "Error")
 
-def dividir(x, y):
-    if y == 0:
-        return "Error: División por cero"
-    return x / y
+def limpiar():
+    entrada.delete(0, tk.END)
 
-print("Seleccione la operación:")
-print("1. Sumar")
-print("2. Restar")
-print("3. Multiplicar")
-print("4. Dividir")
+# Crear la ventana principal
+ventana = tk.Tk()
+ventana.title("Calculadora")
 
-while True:
-    eleccion = input("Ingrese la opción (1/2/3/4): ")
+# Crear una entrada para mostrar los números
+entrada = tk.Entry(ventana, width=16, font=('Arial', 24), borderwidth=2, relief="solid")
+entrada.grid(row=0, column=0, columnspan=4)
 
-    if eleccion in ('1', '2', '3', '4'):
-        num1 = float(input("Ingrese el primer número: "))
-        num2 = float(input("Ingrese el segundo número: "))
+# Crear los botones de la calculadora
+botones = [
+    '7', '8', '9', '/',
+    '4', '5', '6', '*',
+    '1', '2', '3', '-',
+    'C', '0', '=', '+'
+]
 
-        if eleccion == '1':
-            print(f"{num1} + {num2} = {sumar(num1, num2)}")
-        elif eleccion == '2':
-            print(f"{num1} - {num2} = {restar(num1, num2)}")
-        elif eleccion == '3':
-            print(f"{num1} * {num2} = {multiplicar(num1, num2)}")
-        elif eleccion == '4':
-            print(f"{num1} / {num2} = {dividir(num1, num2)}")
+fila = 1
+columna = 0
+
+for boton in botones:
+    if boton == 'C':
+        tk.Button(ventana, text=boton, width=5, height=2, command=limpiar).grid(row=fila, column=columna)
+    elif boton == '=':
+        tk.Button(ventana, text=boton, width=5, height=2, command=calcular).grid(row=fila, column=columna)
     else:
-        print("Opción no válida")
+        tk.Button(ventana, text=boton, width=5, height=2, command=lambda b=boton: agregar_caracter(b)).grid(row=fila, column=columna)
+    
+    columna += 1
+    if columna > 3:
+        columna = 0
+        fila += 1
 
-    otra = input("¿Desea realizar otra operación? (sí/no): ")
-    if otra.lower() != 'sí':
-        break
+ventana.mainloop()
